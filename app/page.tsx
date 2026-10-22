@@ -13,6 +13,8 @@ export default function Home() {
   const [weightKg, setWeightKg] = useState('');
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
+
 
 
   useEffect(()=> {
@@ -53,7 +55,21 @@ export default function Home() {
     } finally {
       setSubmitting(false)
     }
+  } 
+
+  async function advanceStatus(id: number) {
+  setActionError(null);
+  const res = await fetch(`/api/shipments/${id}`, { method: "PATCH" });
+  const data = await res.json();
+
+  if (!res.ok) {
+    setActionError(data.error);
+    return;
   }
+
+  setShipments((prev) => prev.map((s) => (s.id === id ? data : s)));
+}
+
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
@@ -75,11 +91,14 @@ export default function Home() {
         <ul>
           {shipments.map((s) => (
             <li key={s.id}>
-              {s.origin} → {s.destination} · {s.weightKg} kg · {s.status}
+              {s.origin} → {s.destination} · {s.weightKg} kg · {s.status}{" "}
+              <button onClick={() => advanceStatus(s.id)} disabled={s.status === "delivered"}>
+                Next status
+              </button>
             </li>
           ))}
         </ul>
-        
+        {actionError && <p style={{ color: "red" }}>{actionError}</p>}
       </main>
   );
 }

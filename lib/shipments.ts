@@ -1,11 +1,11 @@
-export type ShipmentsStatus = 'pending' | 'in_transit' | 'delivered';
+export type ShipmentStatus = 'pending' | 'in_transit' | 'delivered';
 
 export type Shipment  = {
     id: number;
     origin: string;
     destination: string;
     weightKg: number;
-    status: ShipmentsStatus;
+    status: ShipmentStatus;
 }
 
 export const shipments: Shipment[] = [
