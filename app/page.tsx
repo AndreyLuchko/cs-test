@@ -1,8 +1,6 @@
 'use client'
 import type { Shipment } from '@/lib/shipments';
 import {useState, useEffect, type FormEvent} from 'react'
-import DriversPage from '@/app/drivers/page'
-
 
 export default function Home() {
 
@@ -76,7 +74,7 @@ export default function Home() {
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
   
   return (
-      <main style={{padding: 24}}>
+      <main style={{margin: "0 auto", paddingTop: 20}}>
         <h1>Shipments</h1>
 
         <form onSubmit={handleSubmit} style={{display: 'flex', gap: 8, marginBottom: 16}}>
@@ -100,7 +98,6 @@ export default function Home() {
           ))}
         </ul>
         {actionError && <p style={{ color: "red" }}>{actionError}</p>}
-        <DriversPage/>
       </main>
   );
 }
