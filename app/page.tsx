@@ -1,6 +1,7 @@
 'use client'
 import type { Shipment } from '@/lib/shipments';
 import {useState, useEffect, type FormEvent} from 'react'
+import DriversPage from '@/app/drivers/page'
 
 
 export default function Home() {
@@ -99,6 +100,7 @@ export default function Home() {
           ))}
         </ul>
         {actionError && <p style={{ color: "red" }}>{actionError}</p>}
+        <DriversPage/>
       </main>
   );
 }

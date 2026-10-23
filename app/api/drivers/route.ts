@@ -1,6 +1,5 @@
-type Driver = { id: number; name: string; hoursToday: number };
-
-const drivers: Driver[] = [{ id: 1, name: "Ivan", hoursToday: 4 }];
+import {drivers} from '@/lib/drivers'
+import type {Driver} from '@/lib/drivers'
 
 export async function GET() {
   return Response.json(drivers);
@@ -31,3 +30,6 @@ export async function POST(req: Request) {
   // 4. ВІДПОВІСТИ
   return Response.json(driver, { status: 201 });
 }
+
+
+
